@@ -1,13 +1,11 @@
 package application.service.impl;
 
 import application.dao.DepartmentDao;
-import application.dao.impl.DepartmentDaoImpl;
 import application.model.Department;
-import application.model.Employee;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import application.service.DepartmentService;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
@@ -19,18 +17,6 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Employee findTheHeadOfDepartment(String name) {
-        Department department = findByName(name);
-        return department.getHeadOfDepartment();
-    }
-
-    @Override
-    public List<Employee> findEmployeesOfDepartment(String name) {
-        Department department = findByName(name);
-        return department.getEmployees();
-    }
-
-    @Override
     public Department addData(Department department) {
         return departmentDao.addData(department);
     }
@@ -38,5 +24,10 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Department findByName(String name) {
         return departmentDao.findByName(name);
+    }
+
+    @Override
+    public List<Department> findAll() {
+        return departmentDao.findAll();
     }
 }

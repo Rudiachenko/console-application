@@ -2,9 +2,9 @@ package application.console.answer;
 
 import application.console.Application;
 import application.console.ConsoleHandler;
+import application.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import application.service.DepartmentService;
 
 @Component
 public class MenuCommand implements ConsoleHandler {

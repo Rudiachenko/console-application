@@ -3,8 +3,8 @@ package application.dao.impl;
 import application.dao.DepartmentDao;
 import application.exceptions.DataProcessingException;
 import application.model.Department;
-import application.model.Employee;
-import application.util.HibernateUtil;
+import java.util.List;
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class DepartmentDaoImpl implements DepartmentDao {
+    private static final Logger logger = Logger.getLogger(Department.class);
     private final SessionFactory sessionFactory;
 
     @Autowired
@@ -28,8 +29,9 @@ public class DepartmentDaoImpl implements DepartmentDao {
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
-            session.persist(department);
+            session.save(department);
             transaction.commit();
+            logger.info("Department inserted successfully. " + department);
             return department;
         } catch (Exception e) {
             if (transaction != null) {
@@ -46,11 +48,20 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     @Override
     public Department findByName(String name) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Query<Department> query = session.createQuery("from Department d "
+                    + "join fetch d.employees "
                     + "where d.name = :name", Department.class);
             query.setParameter("name", name);
             return query.getSingleResult();
+        }
+    }
+
+    @Override
+    public List<Department> findAll() {
+        try (Session session = sessionFactory.openSession()) {
+            return session.createQuery("FROM Department d "
+                    + "left join fetch d.employees", Department.class).getResultList();
         }
     }
 }

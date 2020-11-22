@@ -7,23 +7,22 @@ import application.console.answer.GlobalSearchCommand;
 import application.console.answer.MenuCommand;
 import application.console.answer.QuitCommand;
 import application.console.answer.StatisticCommand;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import application.service.DepartmentService;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 @Component
 public class Application {
-    private final String HEAD_OF_DEPARTMENT = "who is head of department";
-    private final String STATISTICS = "show statistics";
-    private final String AVERAGE_SALARY = "show the average salary for the department";
-    private final String COUNT_OF_EMPLOYEE = "show count of employee";
-    private final String GLOBAL_SEARCH = "global search";
-    private final String QUIT = "quit";
-    private final String MENU = "menu";
+    private static final String HEAD_OF_DEPARTMENT = "who is head of department";
+    private static final String STATISTICS = "show statistics";
+    private static final String AVERAGE_SALARY = "show the average salary for the department";
+    private static final String COUNT_OF_EMPLOYEE = "show count of employee";
+    private static final String GLOBAL_SEARCH = "global search";
+    private static final String QUIT = "quit";
+    private static final String MENU = "menu";
     private final DepartmentService departmentService;
     private final Map<String, ConsoleHandler> operation = new HashMap<>();
 

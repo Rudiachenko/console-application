@@ -1,15 +1,14 @@
 package application.console.answer;
 
 import application.console.ConsoleHandler;
+import application.model.Department;
 import application.model.Employee;
+import application.service.DepartmentService;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import application.service.DepartmentService;
-
-import javax.persistence.NoResultException;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 @Component
 public class GlobalSearchCommand implements ConsoleHandler {
@@ -28,22 +27,19 @@ public class GlobalSearchCommand implements ConsoleHandler {
         if (template.equalsIgnoreCase("menu")) {
             return;
         }
-        try {
-            List<Employee> employeesOfDepartment = departmentService.findEmployeesOfDepartment(template);
-            StringBuilder answer = new StringBuilder(", ");
-            for (Employee employee : employeesOfDepartment){
-                String name = employee.getName();
-                String lastName = employee.getLastName();
-                String fullName = name + " " + lastName;
-                if (fullName.contains(template)){
-                    answer.append(fullName);
-                }
-            }
+        List<String> answer = new ArrayList<>();
+        List<Department> allDepartments = departmentService.findAll();
+        for (Department department : allDepartments) {
+            List<Employee> employees = department.getEmployees();
+            employees.stream()
+                    .map(employee -> employee.getName() + " " + employee.getLastName())
+                    .filter(employee -> !answer.contains(employee) && employee.contains(template))
+                    .forEach(answer::add);
+        }
+        if (answer.size() == 0) {
+            System.out.printf("No employees with template '%s'%n", template);
+        } else {
             System.out.println(answer);
-        } catch (NoResultException e) {
-            System.out.println("No departments with name " + template + " was found."
-                    + "Please try again.");
-            handleCommand();
         }
     }
 }
