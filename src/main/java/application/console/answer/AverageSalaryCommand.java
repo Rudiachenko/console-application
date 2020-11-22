@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import application.service.DepartmentService;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 @Component
 public class AverageSalaryCommand implements ConsoleHandler {
-    private DepartmentService departmentService;
+    private final DepartmentService departmentService;
 
     @Autowired
     public AverageSalaryCommand(DepartmentService departmentService) {
@@ -35,7 +36,7 @@ public class AverageSalaryCommand implements ConsoleHandler {
             }
             double averageSalary = salary / employeesOfDepartment.size();
             System.out.println("The average salary of " + nameOfDepartment + " " + averageSalary);
-        } catch (NoSuchElementException e) {
+        } catch (NoResultException e) {
             System.out.println("No departments with name " + nameOfDepartment + " was found."
                     + "Please try again.");
             handleCommand();

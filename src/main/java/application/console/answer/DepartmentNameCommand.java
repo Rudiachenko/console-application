@@ -5,12 +5,13 @@ import application.model.Employee;
 import org.springframework.stereotype.Component;
 import application.service.DepartmentService;
 
+import javax.persistence.NoResultException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 @Component
 public class DepartmentNameCommand implements ConsoleHandler {
-    private DepartmentService departmentService;
+    private final DepartmentService departmentService;
 
     public DepartmentNameCommand(DepartmentService departmentService) {
         this.departmentService = departmentService;
@@ -32,7 +33,7 @@ public class DepartmentNameCommand implements ConsoleHandler {
                     theHeadOfDepartment.getLastName();
             System.out.println(answer);
         }
-        catch (NoSuchElementException e){
+        catch (NoResultException e){
             System.out.println("No departments with name " + nameOfDepartment + " was found."
                     + "Please try again.");
             handleCommand();

@@ -13,7 +13,7 @@ public class Employee {
     private Long id;
     private String name;
     private String lastName;
-    private Title title;
+    private String title;
     private Double salary;
 
     public enum Title {

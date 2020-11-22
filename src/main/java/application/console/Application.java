@@ -17,31 +17,20 @@ import java.util.Scanner;
 
 @Component
 public class Application {
-    private DepartmentService departmentService;
+    private final String HEAD_OF_DEPARTMENT = "who is head of department";
+    private final String STATISTICS = "show statistics";
+    private final String AVERAGE_SALARY = "show the average salary for the department";
+    private final String COUNT_OF_EMPLOYEE = "show count of employee";
+    private final String GLOBAL_SEARCH = "global search";
+    private final String QUIT = "quit";
+    private final String MENU = "menu";
+    private final DepartmentService departmentService;
     private final Map<String, ConsoleHandler> operation = new HashMap<>();
 
     @Autowired
     public Application(DepartmentService departmentService) {
         this.departmentService = departmentService;
     }
-
-    {
-        String headOfDepartment = "who is head of department";
-        String statistics = "show statistics";
-        String averageSalary = "show the average salary for the department";
-        String countOfEmployee = "show count of employee";
-        String globalSearch = "global search";
-        String quit = "quit";
-        String menu = "menu";
-        operation.put(headOfDepartment, new DepartmentNameCommand(departmentService));
-        operation.put(statistics, new StatisticCommand(departmentService));
-        operation.put(averageSalary, new AverageSalaryCommand(departmentService));
-        operation.put(countOfEmployee, new CountOfEmployeeCommand(departmentService));
-        operation.put(globalSearch, new GlobalSearchCommand(departmentService));
-        operation.put(quit, new QuitCommand());
-        operation.put(menu, new MenuCommand(departmentService));
-    }
-
 
     public void start() {
         new Menu().showMenu();
@@ -51,6 +40,14 @@ public class Application {
     }
 
     public void handleCommand(String command) {
+        operation.put(HEAD_OF_DEPARTMENT, new DepartmentNameCommand(departmentService));
+        operation.put(STATISTICS, new StatisticCommand(departmentService));
+        operation.put(AVERAGE_SALARY, new AverageSalaryCommand(departmentService));
+        operation.put(COUNT_OF_EMPLOYEE, new CountOfEmployeeCommand(departmentService));
+        operation.put(GLOBAL_SEARCH, new GlobalSearchCommand(departmentService));
+        operation.put(QUIT, new QuitCommand());
+        operation.put(MENU, new MenuCommand(departmentService));
+
         command = command.toLowerCase();
         while (true) {
             if (!operation.containsKey(command)) {

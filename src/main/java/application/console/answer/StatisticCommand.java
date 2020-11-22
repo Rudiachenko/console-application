@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import application.service.DepartmentService;
 
+import javax.persistence.NoResultException;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 @Component
 public class StatisticCommand implements ConsoleHandler {
-    private DepartmentService departmentService;
+    private final DepartmentService departmentService;
 
     @Autowired
     public StatisticCommand(DepartmentService departmentService) {
@@ -33,13 +33,13 @@ public class StatisticCommand implements ConsoleHandler {
             int associateProfessors = 0;
             int professors = 0;
             for (Employee employee : employeesOfDepartment){
-                if (employee.getTitle().equals(Employee.Title.PROFESSOR)){
+                if (employee.getTitle().equals(String.valueOf(Employee.Title.PROFESSOR))){
                     professors++;
                 }
-                else if (employee.getTitle().equals(Employee.Title.ASSISTANT)){
+                else if (employee.getTitle().equals(String.valueOf(Employee.Title.ASSISTANT))){
                     assistants++;
                 }
-                else if (employee.getTitle().equals(Employee.Title.ASSOCIATE_PROFESSOR)){
+                else if (employee.getTitle().equals(String.valueOf(Employee.Title.ASSOCIATE_PROFESSOR))){
                     associateProfessors++;
                 }
             }
@@ -47,7 +47,7 @@ public class StatisticCommand implements ConsoleHandler {
                     + "associate professors " + associateProfessors + "\n"
                     + "professors " + professors);
         }
-        catch (NoSuchElementException e){
+        catch (NoResultException e){
             System.out.println("No departments with name " + nameOfDepartment + " was found."
                     + "Please try again.");
             handleCommand();

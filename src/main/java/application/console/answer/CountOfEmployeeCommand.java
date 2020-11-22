@@ -5,13 +5,15 @@ import application.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import application.service.DepartmentService;
+
+import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 @Component
 public class CountOfEmployeeCommand implements ConsoleHandler {
-    private DepartmentService departmentService;
+    private final DepartmentService departmentService;
 
     @Autowired
     public CountOfEmployeeCommand(DepartmentService departmentService) {
@@ -29,7 +31,7 @@ public class CountOfEmployeeCommand implements ConsoleHandler {
         try {
             List<Employee> employeesOfDepartment = departmentService.findEmployeesOfDepartment(nameOfDepartment);
             System.out.println("Count of employee " + employeesOfDepartment.size());
-        } catch (NoSuchElementException e) {
+        } catch (NoResultException e) {
             System.out.println("No departments with name " + nameOfDepartment + " was found."
                     + "Please try again.");
             handleCommand();

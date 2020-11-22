@@ -8,7 +8,7 @@ import application.service.DepartmentService;
 
 @Component
 public class MenuCommand implements ConsoleHandler {
-    private DepartmentService departmentService;
+    private final DepartmentService departmentService;
 
     @Autowired
     public MenuCommand(DepartmentService departmentService) {

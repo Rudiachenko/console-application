@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import application.service.DepartmentService;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 @Component
 public class GlobalSearchCommand implements ConsoleHandler {
-    private DepartmentService departmentService;
+    private final DepartmentService departmentService;
 
     @Autowired
     public GlobalSearchCommand(DepartmentService departmentService) {
@@ -39,7 +40,7 @@ public class GlobalSearchCommand implements ConsoleHandler {
                 }
             }
             System.out.println(answer);
-        } catch (NoSuchElementException e) {
+        } catch (NoResultException e) {
             System.out.println("No departments with name " + template + " was found."
                     + "Please try again.");
             handleCommand();

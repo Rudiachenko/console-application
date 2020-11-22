@@ -1,6 +1,7 @@
 package application.service.impl;
 
 import application.dao.DepartmentDao;
+import application.dao.impl.DepartmentDaoImpl;
 import application.model.Department;
 import application.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;

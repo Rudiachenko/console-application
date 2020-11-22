@@ -14,7 +14,6 @@ import java.util.Properties;
 
 @Configuration
 @PropertySource("classpath:db.properties")
-@SpringBootApplication
 @ComponentScan(basePackages = {
         "application.service",
         "application.dao",
@@ -47,7 +46,7 @@ public class AppConfig {
         properties.put("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
 
         factoryBean.setHibernateProperties(properties);
-        factoryBean.setPackagesToScan("com.dev.cinema.application.model");
+        factoryBean.setPackagesToScan("application.model");
         return factoryBean;
     }
 }
