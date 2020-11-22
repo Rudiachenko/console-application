@@ -1,9 +1,9 @@
-package console.answer;
+package application.console.answer;
 
-import console.ConsoleHandler;
-import model.Employee;
+import application.console.ConsoleHandler;
+import application.model.Employee;
 import org.springframework.stereotype.Component;
-import service.DepartmentService;
+import application.service.DepartmentService;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;

@@ -1,6 +1,7 @@
-package config;
+package application.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,10 +14,11 @@ import java.util.Properties;
 
 @Configuration
 @PropertySource("classpath:db.properties")
+@SpringBootApplication
 @ComponentScan(basePackages = {
-        "service",
-        "dao",
-        "console"
+        "application.service",
+        "application.dao",
+        "application.console"
 })
 public class AppConfig {
     private final Environment environment;
@@ -45,7 +47,7 @@ public class AppConfig {
         properties.put("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
 
         factoryBean.setHibernateProperties(properties);
-        factoryBean.setPackagesToScan("com.dev.cinema.model");
+        factoryBean.setPackagesToScan("com.dev.cinema.application.model");
         return factoryBean;
     }
 }

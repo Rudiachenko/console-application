@@ -1,6 +1,6 @@
-package console.answer;
+package application.console.answer;
 
-import console.ConsoleHandler;
+import application.console.ConsoleHandler;
 import org.springframework.stereotype.Component;
 
 @Component

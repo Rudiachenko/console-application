@@ -1,11 +1,11 @@
-package service.impl;
+package application.service.impl;
 
-import dao.DepartmentDao;
-import model.Department;
-import model.Employee;
+import application.dao.DepartmentDao;
+import application.model.Department;
+import application.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import service.DepartmentService;
+import application.service.DepartmentService;
 import java.util.List;
 
 @Service

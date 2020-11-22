@@ -1,14 +1,13 @@
-package dao.impl;
+package application.dao.impl;
 
-import dao.DepartmentDao;
-import exceptions.DataProcessingException;
-import model.Department;
-import model.Employee;
+import application.dao.DepartmentDao;
+import application.exceptions.DataProcessingException;
+import application.model.Department;
+import application.model.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
-import util.HibernateUtil;
 
 import java.util.ArrayList;
 import java.util.List;

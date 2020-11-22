@@ -1,4 +1,4 @@
-package console;
+package application.console;
 
 public class Menu {
     public void showMenu() {

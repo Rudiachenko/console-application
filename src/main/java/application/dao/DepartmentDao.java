@@ -1,7 +1,6 @@
-package dao;
+package application.dao;
 
-import model.Department;
-import model.Employee;
+import application.model.Department;
 import org.springframework.stereotype.Repository;
 
 @Repository

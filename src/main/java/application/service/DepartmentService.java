@@ -1,7 +1,7 @@
-package service;
+package application.service;
 
-import model.Department;
-import model.Employee;
+import application.model.Department;
+import application.model.Employee;
 
 import java.util.List;
 

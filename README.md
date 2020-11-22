@@ -1,1 +1,1 @@
-"# console-application" 
+"# application.console-application" 
