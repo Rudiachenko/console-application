@@ -1,31 +1,21 @@
 package main;
 
-import config.AppConfig;
-import model.Department;
-import model.Employee;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import console.Application;
+import dao.impl.DepartmentDaoImpl;
 import service.DepartmentService;
-
-import java.util.List;
+import service.impl.DepartmentServiceImpl;
 
 public class Main {
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext context =
-                new AnnotationConfigApplicationContext(AppConfig.class);
-        DepartmentService departmentService = context.getBean(DepartmentService.class);
+        DepartmentDaoImpl departmentDao = new DepartmentDaoImpl(sessionFactory);
+        DepartmentService departmentService = new DepartmentServiceImpl(departmentDao);
 
-        Employee bob = new Employee();
-        bob.setName("bob");
-        bob.setLastName("bobinsky");
-        bob.setSalary(500d);
-        bob.setTitle(String.valueOf(Employee.Title.PROFESSOR));
 
-        Department department = new Department();
-        department.setName("politology");
-        department.setEmployees(List.of(bob));
-        department.setHeadOfDepartment(bob);
-        departmentService.addData(department);
+        Application application = new Application(departmentNameCommand,
+                statisticCommand, averageSalaryCommand,
+                countOfEmployeeCommand, globalSearchCommand,
+                quitCommand, menuCommand);
+        application.start();
 
     }
 }

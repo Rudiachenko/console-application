@@ -3,17 +3,21 @@ package dao.impl;
 import dao.DepartmentDao;
 import exceptions.DataProcessingException;
 import model.Department;
+import model.Employee;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import util.HibernateUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @Repository
 public class DepartmentDaoImpl implements DepartmentDao {
     private final SessionFactory sessionFactory;
 
-    @Autowired
     public DepartmentDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
@@ -43,6 +47,24 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
     @Override
     public Department findByName(String name) {
-        return null;
+        List<Department> departments = new ArrayList<>();
+        Employee bob = new Employee();
+        bob.setName("bob");
+        bob.setLastName("bobinsky");
+        bob.setSalary(500d);
+        bob.setTitle(Employee.Title.PROFESSOR);
+
+        Department department = new Department();
+        department.setName("politology");
+        department.setEmployees(List.of(bob));
+        department.setHeadOfDepartment(bob);
+        departments = List.of(department);
+
+        for (Department departmen : departments){
+            if (departmen.getName().equals(name)){
+                return departmen;
+            }
+        }
+        throw new NoSuchElementException();
     }
 }
